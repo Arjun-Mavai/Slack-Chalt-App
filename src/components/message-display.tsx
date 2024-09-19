@@ -1,8 +1,10 @@
+"use client"
 import { useEffect, useState } from 'react'
 import { supabase } from '@/lib/supabase'
+import { Tables } from '../../database.types'
 
 export default function MessageDisplay({ channelId }: { channelId: string }) {
-  const [messages, setMessages] = useState([])
+  const [messages, setMessages] = useState<Tables<'messages'>[]>([])
   useEffect(() => {
     const fetchMessages = async () => {
       const { data, error } = await supabase

@@ -25,7 +25,7 @@ export default function About() {
             <li>Integration with popular tools and services</li>
           </ul>
           <p>
-            Whether you're a small startup or a large enterprise, Slack Clone provides the tools you need to keep your team connected, organized, and productive. Say goodbye to scattered emails and fragmented conversations - with Slack Clone, all your team communication is in one place, accessible, and searchable.
+            Whether you&apos;re a small startup or a large enterprise, Slack Clone provides the tools you need to keep your team connected, organized, and productive. Say goodbye to scattered emails and fragmented conversations - with Slack Clone, all your team communication is in one place, accessible, and searchable.
           </p>
           <p>
             Get started today and experience the future of team collaboration!

@@ -14,7 +14,7 @@ export default function CreateChannelPage() {
     
     const { data, error } = await supabase
       .from('channels')
-      .insert({ name, description, created_by: user.id })
+      .insert({ name, description, created_by: user?.id })
       .select()
 
     if (error) {

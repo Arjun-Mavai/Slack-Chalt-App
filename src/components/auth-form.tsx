@@ -123,12 +123,14 @@ export default function AuthForm({ type }: { type: 'login' | 'signup' }) {
         toast.success('Login successful!')
         router.push('/dashboard')
       }
-    } catch (error: Error) {
-        if (error instanceof Error) {
-            console.error('Error:', error)
-            alert(error.message)
-          }
-      toast.error(error.message|| 'An error occurred during authentication')
+    } catch (error) {
+      if (error instanceof Error) {
+        console.error('Error:', error)
+        alert(error.message)
+      } else {
+        console.error('Unexpected error:', error) // Handle unexpected error types
+        alert('An unexpected error occurred.')
+      }
     }
   }
 

@@ -2,9 +2,10 @@
 import { useEffect, useState } from 'react'
 import { supabase } from '@/lib/supabase'
 import Link from 'next/link'
+import { Tables } from '../../../database.types'
 
 export default function ChannelsPage() {
-  const [channels, setChannels] = useState([])
+  const [channels, setChannels] = useState<Tables<'channels'>[]>()
 
   useEffect(() => {
     fetchChannels()
@@ -27,7 +28,7 @@ export default function ChannelsPage() {
     <div className="p-4">
       <h1 className="text-2xl font-bold mb-4">All Channels</h1>
       <ul className="space-y-2">
-        {channels.map((channel) => (
+        {channels?.map((channel) => (
           <li key={channel.id}>
             <Link href={`/channels/${channel.id}`} className="text-blue-500 hover:underline">
               # {channel.name}
