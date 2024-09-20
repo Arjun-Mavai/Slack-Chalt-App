@@ -6,53 +6,43 @@ import Link from 'next/link'
 import { motion } from 'framer-motion'
 import { MessageSquare, User, Clock } from 'lucide-react'
 
-// type ChannelPreview = {
-//   id: string
-//   name: string
-//   lastMessage: {
-//     content: string
-//     user: {
-//       name: string
-//     }
-//     created_at: string
-//   }  
-// }
-
-
-type User = {
-  name: string;
-};
-
-type LastMessage = {
-  content: string;
-  created_at: string;
-  user: User | null; // Ensure user is of type User or null
-};
-
 type ChannelPreview = {
-  id: string;
-  name: string;
-  lastMessage: LastMessage | null;
-};
+  id: string
+  name: string
+  lastMessage: {
+    content: string
+    user: {
+      name: string
+    }
+    created_at: string
+  } | null
+}
+
 export default function ChatPreview() {
   const [channelPreviews, setChannelPreviews] = useState<ChannelPreview[]>([])
 
-//   useEffect(() => {
-//     fetchChannelPreviews()
+  useEffect(() => {
+    const fetchAndSubscribe = async () => {
+      await fetchChannelPreviews()
 
-//     const channelSubscription = supabase
-//       .channel('public:messages')
-//       .on('INSERT', () => {
-//         fetchChannelPreviews() // Refresh previews when a new message is inserted
-//       })
-//       .subscribe()
+      const channelSubscription = supabase
+        .channel('public:messages')
+        .on('INSERT', () => {
+          fetchChannelPreviews() // Refresh previews when a new message is inserted
+        })
+        .subscribe()
 
-//     return () => {
-//       supabase.removeChannel(channelSubscription)
-//     }
-//   }, [])
+      return () => {
+        supabase.removeChannel(channelSubscription)
+      }
+    }
 
+    fetchAndSubscribe()
 
+    return () => {
+      // Cleanup function to remove the subscription when the component unmounts
+    }
+  }, [])
 
   const fetchChannelPreviews = async () => {
     const { data: channels, error: channelsError } = await supabase
@@ -87,7 +77,7 @@ export default function ChatPreview() {
       })
     )
 
-    setChannelPreviews(previews as any)
+    setChannelPreviews(previews)
   }
 
   const formatDate = (dateString: string) => {
@@ -122,7 +112,7 @@ export default function ChatPreview() {
                   {channel.lastMessage && (
                     <span className="text-xs text-gray-500 flex items-center">
                       <Clock className="w-4 h-4 mr-1" />
-                      {formatDate(channel?.lastMessage?.created_at)}
+                      {formatDate(channel.lastMessage.created_at)}
                     </span>
                   )}
                 </div>
@@ -130,10 +120,10 @@ export default function ChatPreview() {
                   <div className="text-sm text-gray-600">
                     <p className="flex items-center mb-1">
                       <User className="w-4 h-4 mr-2 text-gray-400" />
-                      <span className="font-semibold text-gray-700">{channel?.lastMessage?.user?.name}</span>
+                      <span className="font-semibold text-gray-700">{channel.lastMessage.user.name}</span>
                     </p>
                     <p className="pl-6">
-                      {channel && channel.lastMessage.content.length > 100
+                      {channel.lastMessage.content.length > 100
                         ? `${channel.lastMessage.content.substring(0, 100)}...`
                         : channel.lastMessage.content}
                     </p>

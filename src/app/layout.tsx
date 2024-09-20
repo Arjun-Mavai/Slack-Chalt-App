@@ -1,11 +1,13 @@
+
+
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import Sidebar from "@/components/sidebar";
 import { Toaster } from 'sonner'
-import { SessionProvider } from "next-auth/react";
-import { auth } from "../../auth";
-import NotificationPage from "@/components/notfications";
+  // import NotificationPage from "@/components/notfications";
+import { supabase } from "@/lib/supabase";
+import { Session } from "@supabase/supabase-js";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -28,23 +30,22 @@ export default  async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const session = await auth();
   return (
     <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
       <div className="flex h-screen">
-      <SessionProvider session={session}>
-          <Sidebar />
+           <Sidebar />
           
+
+
           <main className="flex-1 overflow-auto">
             {children}
             <Toaster position="top-right" richColors={true} />
           </main>
           {/* <NotificationPage/> */}
-          </SessionProvider>
-        </div>
+         </div>
       </body>
     </html>
   );

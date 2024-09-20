@@ -19,6 +19,8 @@ export default function MessageDisplay({ channelId }: { channelId: string }) {
         setMessages(data)
       }
     }
+   
+
 
     fetchMessages()
 
@@ -67,6 +69,7 @@ export default function MessageDisplay({ channelId }: { channelId: string }) {
       {messages.map((message) => (
         <div key={message.id} className="bg-white dark:bg-gray-800 rounded-lg shadow p-4">
           <p className="text-gray-800 dark:text-gray-200">{message.content}</p>
+          {displayImage(message?.image_url ?? "")}
         </div>
       ))}
     </div>
@@ -79,3 +82,10 @@ export default function MessageDisplay({ channelId }: { channelId: string }) {
     // </div>
   )
 }
+
+const displayImage = (imageUrl: string) => {
+    if (imageUrl) {
+      return <img src={imageUrl} alt="Message image" className="w-full my-2" />;
+    }
+    return null;
+  };
