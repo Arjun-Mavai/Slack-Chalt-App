@@ -193,12 +193,15 @@
 import { useState, useEffect, useRef } from 'react'
 import { supabase } from '@/lib/supabase'
 import Link from 'next/link'
-import { Home, MessageSquare, PlusCircle, Menu, X, LogIn, UserPlus } from 'lucide-react'
+import { Home, MessageSquare, PlusCircle, Menu, X, LogIn, UserPlus, LogOut } from 'lucide-react'
+import { useRouter } from 'next/navigation'
+import { Button } from './ui/button'
 
 export default function Sidebar() {
   const [channels, setChannels] = useState<any[]>([])
   const [isOpen, setIsOpen] = useState(false)
   const sidebarRef = useRef<HTMLDivElement>(null)
+  const router = useRouter()
 
   useEffect(() => {
     fetchChannels()
@@ -237,6 +240,11 @@ export default function Sidebar() {
     }
   }
 
+
+    const handleLogout = async () => {
+    await supabase.auth.signOut()
+    router.push('/login')
+  }
   return (
     <>
       <button
@@ -291,6 +299,10 @@ export default function Sidebar() {
                 <UserPlus size={18} />
                 <span className="text-sm font-medium">Sign Up</span>
               </Link>
+              <Button onClick={handleLogout}   className="w-full flex items-center justify-center space-x-2 bg-indigo-600 hover:bg-indigo-700 text-white py-2 px-4 rounded-md transition-colors duration-200">
+                <LogOut size={18} />
+                <span className="text-sm font-medium">Log Out</span>
+              </Button>
             </div>
           </div>
         </div>

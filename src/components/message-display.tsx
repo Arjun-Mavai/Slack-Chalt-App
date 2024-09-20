@@ -62,12 +62,20 @@ export default function MessageDisplay({ channelId }: { channelId: string }) {
 //   }, [channelId])
 
   return (
-    <div>
+
+    <div className="flex-1 overflow-y-auto p-4 space-y-4">
       {messages.map((message) => (
-        <div key={message.id} className="message">
-          <p>{message.content}</p>
+        <div key={message.id} className="bg-white dark:bg-gray-800 rounded-lg shadow p-4">
+          <p className="text-gray-800 dark:text-gray-200">{message.content}</p>
         </div>
       ))}
     </div>
+    // <div>
+    //   {messages.map((message) => (
+    //     <div key={message.id} className="message">
+    //       <p>{message.content}</p>
+    //     </div>
+    //   ))}
+    // </div>
   )
 }

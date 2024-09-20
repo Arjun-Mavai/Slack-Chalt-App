@@ -5,6 +5,7 @@ import Sidebar from "@/components/sidebar";
 import { Toaster } from 'sonner'
 import { SessionProvider } from "next-auth/react";
 import { auth } from "../../auth";
+import NotificationPage from "@/components/notfications";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -36,10 +37,12 @@ export default  async function RootLayout({
       <div className="flex h-screen">
       <SessionProvider session={session}>
           <Sidebar />
+          
           <main className="flex-1 overflow-auto">
             {children}
             <Toaster position="top-right" richColors={true} />
           </main>
+          {/* <NotificationPage/> */}
           </SessionProvider>
         </div>
       </body>

@@ -90,15 +90,32 @@ export default function ChannelPage({ params }: { params: { id: string } }) {
 
   if (!channel) return <div>Loading...</div>
 
+
+  
   return (
-    <div className="flex flex-col h-screen text-black">
-      <div className="p-4 border-b">
-        <h1 className="text-2xl font-bold">#{channel?.name ? channel.name : 'Channel Name'}</h1>
-        <p className="text-gray-500">{channel?.description ? channel.description : 'Channel Description'}</p>
-      </div>
-      <MessageList channelId={params.id} />
-      <MessageDisplay channelId={params.id} />
-      <MessageInput channelId={params.id} />
+    <div className="flex flex-col h-screen bg-gray-100 dark:bg-gray-900 text-black dark:text-white">
+    <ChannelHeader channel={channel} />
+    <MessageList channelId={params.id}  />
+    <MessageDisplay channelId={params.id} />
+    <MessageInput channelId={params.id} />
+  </div>
+    // <div className="flex flex-col h-screen text-black">
+    //   <div className="p-4 border-b">
+    //     <h1 className="text-2xl font-bold">#{channel?.name ? channel.name : 'Channel Name'}</h1>
+    //     <p className="text-gray-500">{channel?.description ? channel.description : 'Channel Description'}</p>
+    //   </div>
+    //   <MessageList channelId={params.id} />
+    //   <MessageDisplay channelId={params.id} />
+    //   <MessageInput channelId={params.id} />
+    // </div>
+  )
+}
+
+function ChannelHeader({ channel }: { channel: any }) {
+  return (
+    <div className="p-4 border-b dark:border-gray-700">
+      <h1 className="text-2xl font-bold dark:text-white">#{channel?.name || 'Channel Name'}</h1>
+      <p className="text-gray-500 dark:text-gray-400">{channel?.description || 'Channel Description'}</p>
     </div>
   )
 }
