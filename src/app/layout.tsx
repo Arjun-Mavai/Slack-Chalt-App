@@ -8,6 +8,7 @@ import { Toaster } from 'sonner'
   // import NotificationPage from "@/components/notfications";
 import { supabase } from "@/lib/supabase";
 import { Session } from "@supabase/supabase-js";
+import ScrollProgressBar from "@/components/scroll-progress-bar";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -31,22 +32,38 @@ export default  async function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
+
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-      <div className="flex h-screen">
-           <Sidebar />
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+        <div className="flex h-screen">
+          <Sidebar />
+          <main className="flex-1 overflow-auto relative">
+            <ScrollProgressBar />
+            <div className="h-full overflow-auto">
+              {children}
+            </div>
+            <Toaster position="top-right" richColors={true} />
+          </main>
+        </div>
+      </body>
+    </html>
+    // <html lang="en">
+    //   <body
+    //     className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+    //   >
+    //   <div className="flex h-screen">
+    //        <Sidebar />
           
 
 
-          <main className="flex-1 overflow-auto">
-            {children}
-            <Toaster position="top-right" richColors={true} />
-          </main>
-          {/* <NotificationPage/> */}
-         </div>
-      </body>
-    </html>
+    //       <main className="flex-1 overflow-auto">
+    //         <ScrollProgressBar />
+    //         {children}
+    //         <Toaster position="top-right" richColors={true} />
+    //       </main>
+    //       {/* <NotificationPage/> */}
+    //      </div>
+    //   </body>
+    // </html>
   );
 }

@@ -73,7 +73,7 @@
 //       <ul className="space-y-2">
 //         {channels.map((channel) => (
 //           <li key={channel.id}>
-//             <Link href={`/channels/${channel.id}`} className="hover:text-blue-500">
+//             <Link onClick={handleLinkClick} href={`/channels/${channel.id}`} className="hover:text-blue-500">
 //               # {channel.name}
 //             </Link>
 //           </li>
@@ -193,7 +193,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { supabase } from '@/lib/supabase'
 import Link from 'next/link'
-import { Home, MessageSquare, PlusCircle, Menu, X, LogIn, UserPlus, LogOut } from 'lucide-react'
+import { Home, MessageSquare, PlusCircle, Menu, X, LogIn, UserPlus, LogOut, Heart } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import { Button } from './ui/button'
 
@@ -239,7 +239,9 @@ export default function Sidebar() {
       setChannels(data)
     }
   }
-
+  const handleLinkClick = () => {
+    setIsOpen(false); // Close the sidebar when a link is clicked
+  };
 
     const handleLogout = async () => {
     await supabase.auth.signOut()
@@ -267,16 +269,20 @@ export default function Sidebar() {
             </button>
           </div>
           <nav className="space-y-6">
-            <Link href="/" className="flex items-center space-x-2 text-gray-300 hover:text-white transition-colors duration-200">
+            <Link onClick={handleLinkClick} href="/" className="flex items-center space-x-2 text-gray-300 hover:text-white transition-colors duration-200">
               <Home size={20} />
               <span className="text-sm font-medium">Home</span>
+            </Link>
+            <Link onClick={handleLinkClick} href="/images" className="flex items-center space-x-2 text-gray-300 hover:text-white transition-colors duration-200">
+              <Heart size={20} />
+              <span className="text-sm font-medium">Images</span>
             </Link>
             <div>
               <h3 className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Channels</h3>
               <ul className="space-y-2">
                 {channels.map((channel:any) => (
                   <li key={channel.id}>
-                    <Link href={`/channels/${channel.id}`} className="flex items-center space-x-2 text-gray-300 hover:text-white transition-colors duration-200">
+                    <Link onClick={handleLinkClick} href={`/channels/${channel.id}`} className="flex items-center space-x-2 text-gray-300 hover:text-white transition-colors duration-200">
                       <MessageSquare size={18} />
                       <span className="text-sm">{channel.name}</span>
                     </Link>
@@ -286,16 +292,16 @@ export default function Sidebar() {
             </div>
           </nav>
           <div className="mt-auto space-y-4">
-            <Link href="/channels/create" className="flex items-center space-x-2 text-gray-300 hover:text-white transition-colors duration-200">
+            <Link onClick={handleLinkClick} href="/channels/create" className="flex items-center space-x-2 text-gray-300 hover:text-white transition-colors duration-200">
               <PlusCircle size={20} />
               <span className="text-sm font-medium">Create Channel</span>
             </Link>
             <div className="pt-4 border-t border-gray-700 space-y-2">
-              <Link href="/login" className="flex items-center justify-center space-x-2 bg-indigo-600 hover:bg-indigo-700 text-white py-2 px-4 rounded-md transition-colors duration-200">
+              <Link onClick={handleLinkClick} href="/login" className="flex items-center justify-center space-x-2 bg-indigo-600 hover:bg-indigo-700 text-white py-2 px-4 rounded-md transition-colors duration-200">
                 <LogIn size={18} />
                 <span className="text-sm font-medium">Log In</span>
               </Link>
-              <Link href="/signup" className="flex items-center justify-center space-x-2 bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded-md transition-colors duration-200">
+              <Link onClick={handleLinkClick} href="/signup" className="flex items-center justify-center space-x-2 bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded-md transition-colors duration-200">
                 <UserPlus size={18} />
                 <span className="text-sm font-medium">Sign Up</span>
               </Link>
