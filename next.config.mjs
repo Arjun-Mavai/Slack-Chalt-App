@@ -3,7 +3,7 @@ const nextConfig = {
     images: {
         remotePatterns: [
             'utfs.io',
-            'picsum.photos',
+            'picsum.photos',"apggdwllplyjrcfhvtpz.supabase.co"
         ].map(hostname => ({
             protocol: 'https',
             hostname,

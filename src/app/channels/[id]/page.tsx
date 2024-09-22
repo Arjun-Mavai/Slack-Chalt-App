@@ -188,7 +188,7 @@ export default function ChannelPage({ params }: { params: { id: string } }) {
   return (
     <div className="flex flex-col h-screen bg-gray-100 dark:bg-gray-900 text-black dark:text-white">
       <ChannelHeader channel={channel} />
-      <MessageList channelId={params.id} />
+      {/* <MessageList channelId={params.id} /> */}
       <MessageDisplay channelId={params.id} />
       <MessageInput channelId={params.id} user={session?.user as User} />
     </div>

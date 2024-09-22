@@ -9,6 +9,7 @@ import { Toaster } from 'sonner'
 import { supabase } from "@/lib/supabase";
 import { Session } from "@supabase/supabase-js";
 import ScrollProgressBar from "@/components/scroll-progress-bar";
+import ScrollToBottom from "@/components/scroll-to-bottom";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -38,12 +39,14 @@ export default  async function RootLayout({
         <div className="flex h-screen">
           <Sidebar />
           <main className="flex-1 overflow-auto relative">
-            <ScrollProgressBar />
+          
+            
             <div className="h-full overflow-auto">
               {children}
             </div>
             <Toaster position="top-right" richColors={true} />
           </main>
+           
         </div>
       </body>
     </html>

@@ -274,6 +274,7 @@ export default function EmblaCarousel() {
 
   return (
     <div className="embla relative max-w-6xl mx-auto px-4 py-8">
+        hello
       <div className="embla__viewport overflow-hidden" ref={emblaRef}>
         <div className="embla__container flex">
           {mockImages.map((image) => (

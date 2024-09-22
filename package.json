@@ -31,6 +31,7 @@
     "framer-motion": "^11.5.5",
     "install": "^0.13.0",
     "lucide-react": "^0.441.0",
+    "mysql2": "^3.11.3",
     "next": "14.2.12",
     "npm": "^10.8.3",
     "react": "^18",
